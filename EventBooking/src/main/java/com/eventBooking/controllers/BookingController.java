@@ -2,7 +2,9 @@ package com.eventBooking.controllers;
 
 
 import com.eventBooking.models.booking.Booking;
+import com.eventBooking.models.pricing.Package;
 import com.eventBooking.models.provider.Provider;
+import com.eventBooking.services.PackageService;
 import com.eventBooking.services.ProviderService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -24,6 +26,7 @@ public class BookingController {
     private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
     private final BookingService bookingService = new BookingService();
     private final ProviderService providerService = new ProviderService();
+    private final PackageService packageService = new PackageService();
 
     @GetMapping("/new")
     public String showBookingForm(Model model, HttpSession session) {
@@ -32,7 +35,9 @@ public class BookingController {
         }
 
         List<Provider> providers = providerService.getAllProviders();
+        List<Package> packages = packageService.getAllPackages();
         model.addAttribute("providers", providers);
+        model.addAttribute("packages", packages);
         return "booking/booking";
     }
 
@@ -41,6 +46,7 @@ public class BookingController {
                                 @RequestParam String eventDate,
                                 @RequestParam String location,
                                 @RequestParam String type,
+                                @RequestParam(required = false) String packageName,
                                 Model model,
                                 HttpSession session) {
         String username = (String) session.getAttribute("username");
@@ -48,7 +54,20 @@ public class BookingController {
             return "user/login";
         }
 
-        Booking booking = new Booking(username, providerName, eventDate, location, type, "pending");
+        Booking booking;
+        if (packageName != null && !packageName.isEmpty()) {
+            // Get the package details
+            Package selectedPackage = packageService.getPackageByName(packageName).orElse(null);
+            if (selectedPackage != null) {
+                booking = new Booking(username, providerName, eventDate, location, type, "pending",
+                        selectedPackage.getName(), selectedPackage.getPrice());
+            } else {
+                booking = new Booking(username, providerName, eventDate, location, type, "pending");
+            }
+        } else {
+            booking = new Booking(username, providerName, eventDate, location, type, "pending");
+        }
+
         boolean success = bookingService.createBooking(booking);
         List<Booking> bookings = bookingService.getBookingsByUser(username);
         model.addAttribute("bookings", bookings);
@@ -75,9 +94,9 @@ public class BookingController {
 
     @GetMapping("/{bookingId}")
     public String showBooking(@PathVariable String bookingId,
-                         Model model, 
-                         HttpSession session,
-                         RedirectAttributes redirectAttributes) {
+                              Model model,
+                              HttpSession session,
+                              RedirectAttributes redirectAttributes) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             return "redirect:/login";
@@ -86,10 +105,10 @@ public class BookingController {
         logger.debug("Attempting to find booking {} for user {}", bookingId, username);
         Booking booking = bookingService.getBookingById(bookingId, username);
 
-    model.addAttribute("booking", booking);
-    redirectAttributes.addFlashAttribute("booking", booking);
-    return "booking/bookingDetails";
-}
+        model.addAttribute("booking", booking);
+        redirectAttributes.addFlashAttribute("booking", booking);
+        return "booking/bookingDetails";
+    }
 
     @GetMapping("/cancel/{bookingId}")
     public String cancelBooking(@PathVariable String bookingId, HttpSession session, Model model) {

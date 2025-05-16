@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Booking | Capture Moments</title>
+    <link rel="stylesheet" th:href="@{/css/booking/booking.css}">
+</head>
+<body>
+<div class="booking-container">
+    <header class="booking-header">
+        <div class="logo">
+            <div class="camera-icon">📷</div>
+            <h1>Capture Moments</h1>
+            <p>Book Your Perfect Photographer</p>
+        </div>
+        <a th:href="@{/dashboard}" class="back-btn">← Back to Dashboard</a>
+    </header>
+
+    <main class="booking-main">
+        <div class="booking-card">
+            <h2 class="booking-title">New Booking</h2>
+            <form th:action="@{/bookings/create}" method="post" class="booking-form">
+                <div class="form-group">
+                    <label for="provider">Select Provider</label>
+                    <select id="provider" name="providerName" required>
+                        <option value="" disabled selected>Choose a professional</option>
+                        <option th:each="provider : ${providers}"
+                                th:value="${provider.name}"
+                                th:text="${provider.name + ' (' + provider.specialty + ') - ' + provider.rating + '★ - ' + provider.providerType}">
+                            John Doe (Wedding Photography) - 5★ - PHOTOGRAPHER
+                        </option>
+                    </select>
+                    <div class="provider-reviews-link">
+                        <a id="viewReviewsLink" href="#" style="display: none; margin-top: 5px; font-size: 0.9em; color: #4285f4;">
+                            View Reviews
+                        </a>
+                    </div>
+
+                    <script th:inline="javascript">
+                        document.getElementById('provider').addEventListener('change', function() {
+                            var selectedProvider = this.value;
+                            if (selectedProvider) {
+                                var reviewsLink = document.getElementById('viewReviewsLink');
+                                reviewsLink.href = '/reviews/provider/' + selectedProvider;
+                                reviewsLink.style.display = 'inline-block';
+                            } else {
+                                document.getElementById('viewReviewsLink').style.display = 'none';
+                            }
+                        });
+                    </script>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventType">Event Type</label>
+                    <input type="text" id="eventType" name="type" placeholder="e.g. Wedding, Birthday, Corporate" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventDate">Date</label>
+                        <input type="date" id="eventDate" name="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Time</label>
+                        <input type="time" id="eventTime" name="eventTime" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="Venue or address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="packageName">Select Package</label>
+                    <select id="packageName" name="packageName">
+                        <option value="">No Package</option>
+                        <option th:each="package : ${packages}"
+                                th:value="${package.name}"
+                                th:text="${package.name + ' - $' + package.price}"
+                                th:attr="data-package-type=${package.packageType}">
+                            Basic Package - $500
+                        </option>
+                    </select>
+                    <div id="packageMessage" style="color: red; margin-top: 5px; display: none;">
+                        Please select a provider first
+                    </div>
+                </div>
+
+                <div id="packageDetails" class="form-group" style="display: none; margin-top: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 5px;">
+                    <h4>Package Details</h4>
+                    <p id="packagePrice">Price: <span>$0</span></p>
+                    <p id="packageDuration">Duration: <span>0 hours</span></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Special Requests</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Any specific requirements?"></textarea>
+                </div>
+
+                <script th:inline="javascript">
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var providerSelect = document.getElementById('provider');
+                        var packageSelect = document.getElementById('packageName');
+                        var packageMessage = document.getElementById('packageMessage');
+                        var packageDetails = document.getElementById('packageDetails');
+                        var allPackageOptions = Array.from(packageSelect.options).slice(1); // Skip the "No Package" option
+
+                        // Initially disable package selection and show message
+                        packageSelect.disabled = true;
+                        packageMessage.style.display = 'block';
+
+                        providerSelect.addEventListener('change', function() {
+                            var selectedProvider = this.value;
+
+                            // Reset package dropdown
+                            packageSelect.innerHTML = '<option value="">No Package</option>';
+                            packageDetails.style.display = 'none';
+
+                            if (selectedProvider) {
+                                // Enable package selection
+                                packageSelect.disabled = false;
+                                packageMessage.style.display = 'none';
+
+                                // Get provider type
+                                var selectedOption = this.options[this.selectedIndex];
+                                var providerText = selectedOption.text;
+                                var isPhotographer = providerText.includes('PHOTOGRAPHER');
+                                var isVideographer = providerText.includes('VIDEOGRAPHER');
+
+                                // Filter packages based on provider type
+                                allPackageOptions.forEach(function(option) {
+                                    var packageType = option.getAttribute('data-package-type');
+
+                                    if ((isPhotographer && packageType === 'PHOTOGRAPHER') || 
+                                        (isVideographer && packageType === 'VIDEOGRAPHER')) {
+                                        packageSelect.appendChild(option.cloneNode(true));
+                                    }
+                                });
+                            } else {
+                                // Disable package selection and show message
+                                packageSelect.disabled = true;
+                                packageMessage.style.display = 'block';
+                            }
+                        });
+
+                        packageSelect.addEventListener('change', function() {
+                            var selectedPackage = this.value;
+
+                            if (selectedPackage) {
+                                // Find the selected package data
+                                var packages = /*[[${packages}]]*/ [];
+                                var selected = packages.find(function(pkg) {
+                                    return pkg.name === selectedPackage;
+                                });
+
+                                if (selected) {
+                                    document.getElementById('packagePrice').innerHTML = 'Price: <span>$' + selected.price + '</span>';
+                                    document.getElementById('packageDuration').innerHTML = 'Duration: <span>' + selected.duration + ' hours</span>';
+                                    packageDetails.style.display = 'block';
+                                }
+                            } else {
+                                packageDetails.style.display = 'none';
+                            }
+                        });
+                    });
+                </script>
+
+                <button type="submit" class="submit-btn">Confirm Booking</button>
+            </form>
+
+        </div>
+
+
+    </main>
+
+    <footer class="booking-footer">
+        <p>&copy; 2025 Capture Moments. All rights reserved.</p>
+    </footer>
+</div>
+</body>
+</html>

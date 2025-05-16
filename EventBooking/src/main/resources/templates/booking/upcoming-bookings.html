@@ -1,0 +1,52 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Upcoming Bookings</title>
+  <link rel="stylesheet" th:href="@{/css/booking/upcoming-bookings.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+  <header class="page-header">
+    <div class="header-content">
+      <a th:href="@{/dashboard}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+      <div class="title-group">
+        <h1>Your Upcoming Bookings</h1>
+        <p>Stay updated with your scheduled sessions</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="bookings-list">
+    <div th:each="booking : ${bookings}" class="booking-card">
+      <!-- Rest of your booking card content remains the same -->
+      <div class="booking-date">
+        <span class="date-text" th:text="${booking.formattedDate}">15 Jan 2025</span>
+      </div>
+      <div class="booking-info">
+        <h2 th:text="${booking.providerName}">Provider Name</h2>
+        <p th:text="${'Event Type: ' + booking.eventType}">Wedding</p>
+        <p th:text="${'Location: ' + booking.location}">Colombo</p>
+        <p th:text="${'Status: ' + booking.status}" class="status-label">Pending</p>
+      </div>
+      <div class="booking-actions">
+        <a th:href="@{'/bookings/' + ${booking.bookingId}}" class="btn btn-details">Details</a>
+        <a th:if="${booking.status != null && !booking.status.equalsIgnoreCase('completed')}"
+           th:href="@{'/bookings/cancel/' + ${booking.bookingId}}"
+           class="btn btn-cancel">Cancel</a>
+        <a th:if="${booking.status != null && booking.status.equalsIgnoreCase('completed')}"
+           th:href="@{'/reviews/new/' + ${booking.bookingId}}"
+           class="btn btn-review">Leave Review</a>
+      </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(bookings)}" class="no-bookings">
+      <p>No upcoming bookings. <a th:href="@{/bookings/new}" class="link-primary">Book a session now!</a></p>
+    </div>
+  </section>
+</div>
+</body>
+</html>
