@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Your Bookings</title>
+    <link rel="stylesheet" th:href="@{/css/booking/manage.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Your Bookings</h2>
+
+    <div th:if="${param.reviewSubmitted}" class="alert alert-success" role="alert">
+        Thank you for your review! We appreciate your feedback.
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>Provider</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking : ${bookings}">
+                <td data-label="Provider" th:text="${booking.providerName}">Provider Name</td>
+                <td data-label="Date" th:text="${booking.eventDate}">Event Date</td>
+                <td data-label="Status">
+                            <span th:text="${booking.status}"
+                                  th:classappend="${#strings.toLowerCase(booking.status) == 'pending'} ? 'status-pending status-badge' : (${#strings.toLowerCase(booking.status) == 'completed'} ? 'status-completed status-badge' : 'status-other status-badge')">
+                                Current Status
+                            </span>
+                </td>
+                <td data-label="Action" class="action-cell">
+                    <form th:if="${#strings.toLowerCase(booking.status) == 'pending'}" th:action="@{/bookings/cancel/{id}(id=${booking.bookingId})}" method="get" class="action-form">
+                        <button type="submit" class="button button-cancel">Cancel Booking</button>
+                    </form>
+
+                    <a th:if="${#strings.toLowerCase(booking.status) == 'completed'}" th:href="@{/reviews/create/{id}(id=${booking.bookingId})}" class="button button-review">
+                        Leave a Review
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${bookings == null or bookings.isEmpty()}">
+                <td colspan="4" class="empty-table-message">You have no bookings yet. Start by exploring our services!</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Details</title>
+    <link rel="stylesheet" href="/css/booking/bookingDetails.css">
+</head>
+<body>
+<div class="container">
+    <h1>Booking Details</h1>
+    <div class="card">
+        <p><span>Username:</span> <span th:text="${booking.username}">john_doe</span></p>
+        <p><span>Provider Name:</span> <span th:text="${booking.providerName}">StudioX</span></p>
+        <p><span>Event:</span> <span th:text="${booking.getEventType()}">Wedding</span></p>
+        <p><span>Date:</span> <span th:text="${booking.formattedDate}">May 20, 2025</span></p>
+        <p><span>Location:</span> <span th:text="${booking.location}">Colombo</span></p>
+        <p><span>Status:</span> <span class="status" th:text="${booking.status}">Pending</span></p>
+    </div>
+    <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+</div>
+</body>
+</html>
