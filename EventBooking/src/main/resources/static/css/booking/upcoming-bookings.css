@@ -1,0 +1,360 @@
+:root {
+    --primary-bg: #0f0e17;
+    --secondary-bg: #1a1935;
+    --accent-color: #9d4edd;
+    --accent-hover: #7b2cbf;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --card-bg: #1f1d36;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --error-color: #f44336;
+    --pending-color: #ffc107;
+    --completed-color: #4caf50;
+    --divider: #2e2c4d;
+}
+
+
+
+/* Add these new styles at the top of your existing CSS */
+.header-content {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.back-button {
+    position: absolute;
+    left: -5px;
+    top: -10%;
+    transform: translateY(-50%);
+    color: var(--accent-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.back-button:hover {
+    background-color: rgba(157, 78, 221, 0.1);
+    color: var(--accent-hover);
+}
+
+.title-group {
+    display: inline-block;
+    text-align: center;
+}
+
+/* Update the bookings-list to center cards */
+.bookings-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    padding: 0 1rem;
+}
+
+.booking-card {
+    width: 100%;
+    max-width: 400px;
+    /* Rest of your existing card styles */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    max-height: 100vh;
+    margin: 30px auto;
+    padding: 2rem 1.5rem;
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--accent-color), #c77dff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+.page-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    animation: fadeIn 0.6s ease-out;
+    /*justify-items: center; !* Add this line to center the grid items *!*/
+    /*padding: 0 1rem; !* Optional: Add some padding to prevent cards from touching edges *!*/
+}
+
+.booking-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--accent-color);
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+    min-width: 300px;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.booking-date {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.date-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    position: relative;
+    padding-left: 1.8rem;
+}
+
+.date-text::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.booking-info h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.booking-info p {
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+}
+
+.status-label {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.status-label[th*="Pending"] {
+    background-color: var(--pending-color);
+    color: #000;
+}
+
+.status-label[th*="Confirmed"] {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.status-label[th*="Cancelled"] {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.status-label[th*="Completed"] {
+    background-color: var(--completed-color);
+    color: white;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-details {
+    background-color: var(--accent-color);
+    color: white;
+    border: 1px solid var(--accent-color);
+}
+
+.btn-details:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    background-color: transparent;
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+.btn-cancel:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-review {
+    background-color: transparent;
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.btn-review:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    transform: translateY(-2px);
+}
+
+.no-bookings {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 3rem;
+    background: var(--secondary-bg);
+    border-radius: 12px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.no-bookings p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.link-primary {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.link-primary:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Stagger animations for booking cards */
+.booking-card:nth-child(1) { animation-delay: 0.1s; }
+.booking-card:nth-child(2) { animation-delay: 0.2s; }
+.booking-card:nth-child(3) { animation-delay: 0.3s; }
+.booking-card:nth-child(4) { animation-delay: 0.4s; }
+.booking-card:nth-child(5) { animation-delay: 0.5s; }
+.booking-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bookings-list {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .booking-card {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    .booking-actions {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

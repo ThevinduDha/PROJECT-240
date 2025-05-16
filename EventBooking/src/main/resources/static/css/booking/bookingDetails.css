@@ -1,0 +1,87 @@
+:root {
+    --primary-bg: #0f0e17;
+    --secondary-bg: #1a1935;
+    --accent-color: #9d4edd;
+    --accent-hover: #7b2cbf;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --card-overlay: rgba(15, 14, 23, 0.7);
+    --card-overlay-hover: rgba(15, 14, 23, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+    font-size: 2rem;
+}
+
+.card {
+    background-color: var(--card-overlay);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+
+.card:hover {
+    background-color: var(--card-overlay-hover);
+}
+
+.card p {
+    margin: 0.75rem 0;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.card span:first-child {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.status {
+    text-transform: capitalize;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: var(--accent-hover);
+}
