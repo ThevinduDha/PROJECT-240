@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dashboard | Capture Moments</title>
+    <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+</head>
+<body>
+<div class="container">
+    <!-- Header with User Info -->
+    <header class="dashboard-header">
+        <div class="logo">
+            <div class="camera-icon">📷</div>
+            <div>
+                <h1>Capture Moments</h1>
+                <p>Your Photography Dashboard</p>
+            </div>
+        </div>
+        <div class="user-info">
+            <span class="username" th:text="${session.username}">John Doe</span>
+            <a th:href="@{/logout}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <!-- Dashboard Cards -->
+    <div class="dashboard-cards-container">
+        <!-- Manage Bookings Card -->
+        <div class="dashboard-card card-manage-bookings">
+            <div class="card-thumbnail">
+                <div class="card-thumbnail-text">Manage Bookings</div>
+            </div>
+
+            <div class="card-content">
+                <h3 class="card-title">Manage Bookings</h3>
+                <p class="card-description">View, modify, or cancel your existing bookings.</p>
+                <a th:href="@{/bookings/manage}" class="btn btn-primary">Manage</a>
+            </div>
+        </div>
+
+
+        <!-- New Booking Card -->
+        <div class="dashboard-card card-new-booking">
+            <!-- Thumbnail for shrunken state -->
+            <div class="card-thumbnail">
+                <div class="card-thumbnail-text">New Booking</div>
+            </div>
+
+            <!-- Expanded content (hidden when shrunken) -->
+            <div class="card-content">
+                <h3 class="card-title">New Booking</h3>
+                <p class="card-description">Book a professional photographer or videographer for your next eventTyple.</p>
+                <a th:href="@{/bookings/new}" class="btn btn-primary">Book Now</a>
+            </div>
+        </div>
+
+        <!-- Gallery Card -->
+        <div class="dashboard-card card-gallery">
+            <!-- Thumbnail for shrunken state -->
+            <div class="card-thumbnail">
+                <div class="card-thumbnail-text">Gallery</div>
+            </div>
+
+            <div class="card-content">
+                <h3 class="card-title">Gallery</h3>
+                <p class="card-description">Browse our portfolio of stunning photography work.</p>
+                <a th:href="@{/gallery/}" class="btn btn-primary">View Gallery</a>
+            </div>
+        </div>
+
+        <!-- Upcoming Bookings Card -->
+        <div class="dashboard-card card-upcoming">
+            <!-- Thumbnail for shrunken state -->
+            <div class="card-thumbnail">
+                <div class="card-thumbnail-text">Upcoming</div>
+            </div>
+
+            <div class="card-content">
+                <h3 class="card-title">Upcoming</h3>
+                <p class="card-description">Your scheduled photography sessions.</p>
+                <a th:href="@{/bookings/upcoming}" class="btn btn-primary smooth-scroll">View All</a>
+            </div>
+        </div>
+
+        <!-- About Card -->
+        <div class="dashboard-card card-about">
+            <!-- Thumbnail for shrunken state -->
+            <div class="card-thumbnail">
+                <div class="card-thumbnail-text">About</div>
+            </div>
+
+
+            <!-- Card content section containing information about the photography services -->
+            <div class="card-content">
+                <!-- Title of the card -->
+                <h2 class="card-title">About Us</h2>
+                <!-- Description of the photography services offered -->
+                <p class="card-description">Learn more about Capture Moments and our photography services.</p>
+                <!-- Link to navigate to the About Us page -->
+                <a th:href="@{/about}" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
