@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Gallery</title>
+    <link rel="stylesheet" th:href="@{/css/gallery.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="gallery-container">
+    <div class="gallery-left">
+        <div class="gallery-header">
+            <h2 class="title">Photographer & Videographer Gallery</h2>
+            <p class="subtitle">Explore our talented providers</p>
+            <div class="controls">
+                <select id="providerType" onchange="filterProviders()">
+                    <option value="PHOTOGRAPHER">Photographers</option>
+                    <option value="VIDEOGRAPHER">Videographers</option>
+                </select>
+                <button onclick="toggleSortOrder()">
+                    <i id="sort-icon" class="fas fa-sort-amount-down"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="providers-grid">
+            <div class="provider-card"
+                 th:each="provider : ${providers}"
+                 th:classappend="${provider.providerType}"
+                 th:data-rating="${provider.rating}">
+                <div class="card-image">
+                    <div class="rating-badge">
+                        <i class="fas fa-star"></i>
+                        <span th:text="${provider.rating}">5</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 th:text="${provider.name}">Jane Doe</h3>
+                    <p class="specialty" th:text="${provider.specialty}">Weddings</p>
+                    <p class="resolution" th:text="'Resolution: ' + ${provider.resolution}">4K</p>
+                    <div class="sample-work">
+                        <div class="sample-thumbnail"></div>
+                        <div class="sample-thumbnail"></div>
+                        <div class="sample-thumbnail"></div>
+                    </div>
+                    <a th:href="@{'/bookings/new?provider=' + ${provider.name}}" class="book-btn">
+                        Book Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-right">
+        <h3>Providers List</h3>
+        <ul class="provider-list" id="providerList">
+            <li th:each="provider : ${providers}"
+                th:classappend="${provider.providerType}"
+                th:text="${provider.name} + ' (' + ${provider.rating} + ')'">
+                John Doe (5)
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    let ascending = true;
+
+    function toggleSortOrder() {
+        const icon = document.getElementById("sort-icon");
+        ascending = !ascending;
+        icon.className = ascending ? "fas fa-sort-amount-down" : "fas fa-sort-amount-up";
+        sortCards();
+    }
+
+    function sortCards() {
+        const grid = document.querySelector(".providers-grid");
+        const cards = Array.from(grid.children);
+        cards.sort((a, b) => {
+            const ratingA = parseInt(a.dataset.rating);
+            const ratingB = parseInt(b.dataset.rating);
+            return ascending ? ratingB - ratingA : ratingA - ratingB;
+        });
+        cards.forEach(card => grid.appendChild(card));
+    }
+
+    function filterProviders() {
+        const selected = document.getElementById("providerType").value;
+        document.querySelectorAll(".provider-card, .provider-list li").forEach(el => {
+            el.style.display = el.classList.contains(selected) ? "block" : "none";
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        filterProviders();
+        sortCards();
+    });
+</script>
+</body>
+</html>
