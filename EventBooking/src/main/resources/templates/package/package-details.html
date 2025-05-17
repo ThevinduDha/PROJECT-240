@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Package Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .package-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .package-header {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .package-type {
+            color: var(--accent-color);
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .package-name {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .package-details {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .detail-icon {
+            color: var(--accent-color);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .detail-text {
+            flex: 1;
+        }
+        
+        .detail-text h4 {
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .detail-text p {
+            color: var(--text-secondary);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="package-container">
+            <div class="package-header">
+                <div class="package-type" th:text="${packageType}">Package Type</div>
+                <h2 class="package-name" th:text="${package.name}">Package Name</h2>
+                <div class="package-price">$<span th:text="${package.price}">0</span></div>
+            </div>
+            
+            <div class="package-details">
+                <h3>Package Details</h3>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">⏱</div>
+                    <div class="detail-text">
+                        <h4>Duration</h4>
+                        <p><span th:text="${package.duration}">0</span> hours of coverage</p>
+                    </div>
+                </div>
+                
+                <!-- Photography specific details -->
+                <div class="detail-item" th:if="${packageType == 'Photography'}">
+                    <div class="detail-icon">📸</div>
+                    <div class="detail-text">
+                        <h4>Photos</h4>
+                        <p>Up to <span th:text="${photoPackage.maxPhotoCount}">0</span> professionally edited photos</p>
+                    </div>
+                </div>
+                
+                <!-- Videography specific details -->
+                <div class="detail-item" th:if="${packageType == 'Videography'}">
+                    <div class="detail-icon">🎥</div>
+                    <div class="detail-text">
+                        <h4>Video Length</h4>
+                        <p>Up to <span th:text="${videoPackage.maxVideoDuration}">0</span> minutes of edited video</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text">
+                        <h4>Pricing</h4>
+                        <p>$<span th:text="${package.price}">0</span> for the complete package</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a th:href="@{/bookings/create(packageName=${package.name})}" class="btn btn-primary">Book This Package</a>
+                <a th:href="@{/packages}" class="btn btn-outline">Back to Packages</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Packages & Pricing</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .package-card {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .package-type {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .package-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .package-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .package-details {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .package-cta {
+            margin-top: 15px;
+        }
+        
+        .section-title {
+            color: var(--accent-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Packages & Pricing</h2>
+        <p>Choose the perfect package for your special eventTyple.</p>
+        
+        <!-- Photography Packages -->
+        <h3 class="section-title">Photography Packages</h3>
+        <div class="package-grid">
+            <div th:each="package : ${photoPackages}" class="package-card">
+                <div class="package-type">Photography</div>
+                <h4 class="package-name" th:text="${package.name}">Package Name</h4>
+                <div class="package-price">$<span th:text="${package.price}">0</span></div>
+                <div class="package-details">
+                    <p><strong>Duration:</strong> <span th:text="${package.duration}">0</span> hours</p>
+                    <p><strong>Photos:</strong> Up to <span th:text="${package.maxPhotoCount}">0</span> edited photos</p>
+                </div>
+                <div class="package-cta">
+                    <a th:href="@{/packages/{name}(name=${package.name})}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Show message if no photography packages -->
+            <div th:if="${photoPackages.isEmpty()}" class="package-card" style="grid-column: 1 / -1; text-align: center;">
+                <p>No photography packages available at the moment.</p>
+            </div>
+        </div>
+        
+        <!-- Videography Packages -->
+        <h3 class="section-title">Videography Packages</h3>
+        <div class="package-grid">
+            <div th:each="package : ${videoPackages}" class="package-card">
+                <div class="package-type">Videography</div>
+                <h4 class="package-name" th:text="${package.name}">Package Name</h4>
+                <div class="package-price">$<span th:text="${package.price}">0</span></div>
+                <div class="package-details">
+                    <p><strong>Duration:</strong> <span th:text="${package.duration}">0</span> hours</p>
+                    <p><strong>Video Length:</strong> Up to <span th:text="${package.maxVideoDuration}">0</span> minutes</p>
+                </div>
+                <div class="package-cta">
+                    <a th:href="@{/packages/{name}(name=${package.name})}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Show message if no videography packages -->
+            <div th:if="${videoPackages.isEmpty()}" class="package-card" style="grid-column: 1 / -1; text-align: center;">
+                <p>No videography packages available at the moment.</p>
+            </div>
+        </div>
+        
+        <!-- Back to home link -->
+        <div style="margin-top: 40px; text-align: center;">
+            <a th:href="@{/static}" class="btn btn-outline">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${isEdit ? 'Edit Package' : 'Create Package'}">Package Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--secondary-bg);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .conditional-field {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .required-indicator {
+            color: var(--error-color);
+            margin-left: 5px;
+        }
+
+        .form-help {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 th:text="${isEdit ? 'Edit Package' : 'Create New Package'}">Package Form</h2>
+
+        <div class="form-container">
+            <form th:action="${isEdit ? '/admin/packages/update' : '/admin/packages/create'}" method="post">
+                <!-- Hidden field for edit mode -->
+                <input type="hidden" name="oldName" th:if="${isEdit}" th:value="${oldName}">
+
+                <div class="form-group">
+                    <label for="packageType">Package Type<span class="required-indicator">*</span></label>
+                    <select id="packageType" name="packageType" required onchange="toggleFields()">
+                        <option value="">Select Type</option>
+                        <option value="PHOTO" th:selected="${packageType == 'PHOTO'}">Photography</option>
+                        <option value="VIDEO" th:selected="${packageType == 'VIDEO'}">Videography</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="packageName">Package Name<span class="required-indicator">*</span></label>
+                    <input type="text" id="packageName" name="packageName" th:value="${packageName}" required>
+                    <div class="form-help">Choose a descriptive name for the package (e.g., "Basic Wedding", "Premium Event")</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="packagePrice">Price ($)<span class="required-indicator">*</span></label>
+                    <input type="number" id="packagePrice" name="packagePrice" th:value="${packagePrice}" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="packageDuration">Duration (hours)<span class="required-indicator">*</span></label>
+                    <input type="number" id="packageDuration" name="packageDuration" th:value="${packageDuration}" min="1" required>
+                </div>
+
+                <!-- Photography-specific field -->
+                <div id="photoField" class="form-group conditional-field" style="display: none;">
+                    <label for="maxPhotoCount">Maximum Number of Photos<span class="required-indicator">*</span></label>
+                    <input type="number" id="maxPhotoCount" name="maxPhotoCount" th:value="${maxPhotoCount}" min="1">
+                    <div class="form-help">The maximum number of edited photos the client will receive</div>
+                </div>
+
+                <!-- Videography-specific field -->
+                <div id="videoField" class="form-group conditional-field" style="display: none;">
+                    <label for="maxVideoDuration">Maximum Video Duration (minutes)<span class="required-indicator">*</span></label>
+                    <input type="number" id="maxVideoDuration" name="maxVideoDuration" th:value="${maxVideoDuration}" min="1">
+                    <div class="form-help">The maximum length of the final edited video in minutes</div>
+                </div>
+
+                <div class="form-actions">
+                    <a th:href="@{/admin/packages}" class="btn btn-outline">Cancel</a>
+                    <button type="submit" class="btn btn-primary" th:text="${isEdit ? 'Update Package' : 'Create Package'}">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle fields based on package type
+        function toggleFields() {
+            const packageType = document.getElementById('packageType').value;
+            const photoField = document.getElementById('photoField');
+            const videoField = document.getElementById('videoField');
+
+            if (packageType === 'PHOTO') {
+                photoField.style.display = 'block';
+                videoField.style.display = 'none';
+                document.getElementById('maxPhotoCount').required = true;
+                document.getElementById('maxVideoDuration').required = false;
+            } else if (packageType === 'VIDEO') {
+                photoField.style.display = 'none';
+                videoField.style.display = 'block';
+                document.getElementById('maxPhotoCount').required = false;
+                document.getElementById('maxVideoDuration').required = true;
+            } else {
+                photoField.style.display = 'none';
+                videoField.style.display = 'none';
+                document.getElementById('maxPhotoCount').required = false;
+                document.getElementById('maxVideoDuration').required = false;
+            }
+        }
+
+        // Initialize form on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleFields();
+        });
+    </script>
+</body>
+</html>
