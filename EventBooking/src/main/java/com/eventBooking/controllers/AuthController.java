@@ -54,7 +54,7 @@ public class AuthController {
         if(adminService.validateAdminLogin(username, password)) {
             session.setAttribute("username", username);
             session.setAttribute("password", password);
-            session.setAttribute("role", "admin");
+            session.setAttribute("role", "com/eventBooking/models/admin");
             model.addAttribute("error", false);
             return "admin-dashboard";
         }
@@ -66,8 +66,8 @@ public class AuthController {
 
             // Check if the user has admin role in users.txt
             User user = userService.getUserByUsername(username);
-            if(user != null && user.getEmail().equals("admin")) {
-                session.setAttribute("role", "admin");
+            if(user != null && user.getEmail().equals("com/eventBooking/models/admin")) {
+                session.setAttribute("role", "com/eventBooking/models/admin");
                 return "admin-dashboard";
             }
             else {
