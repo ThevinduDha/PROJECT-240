@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Manage Providers</title>
+    <link rel="stylesheet" th:href="@{/css/admin-portal/admin-providers.css}">
+</head>
+<body>
+<div class="container">
+    <div class="admin-header">
+        <h2>Manage Providers</h2>
+        <p>Create, update, and delete photography and videography providers.</p>
+    </div>
+
+    <div class="admin-nav">
+        <a th:href="@{/admin/dashboard}" class="admin-btn">Dashboard</a>
+        <a th:href="@{/admin/users}" class="admin-btn">Manage Users</a>
+        <a th:href="@{/admin/providers}" class="admin-btn">Manage Providers</a>
+        <a th:href="@{/admin/bookings}" class="admin-btn">Manage Bookings</a>
+        <a th:href="@{/admin/packages}" class="admin-btn">Manage Packages</a>
+        <a th:href="@{/admin/reviews}" class="admin-btn">Manage Reviews</a>
+        <a th:href="@{/logout}" class="admin-btn logout-btn">Logout</a>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="message error" th:text="${errorMessage}"></div>
+
+    <!-- Add Provider Form -->
+    <div class="provider-form">
+        <h3>Add New Provider</h3>
+        <form th:action="@{/admin/add-provider}" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="providerName">Name:</label>
+                    <input type="text" id="providerName" name="providerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="speciality">Specialty:</label>
+                    <input type="text" id="speciality" name="speciality" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="resolution">Resolution:</label>
+                    <input type="text" id="resolution" name="resolution" required>
+                </div>
+                <div class="form-group">
+                    <label for="providerType">Type:</label>
+                    <select id="providerType" name="providerType" required>
+                        <option value="PHOTOGRAPHER">Photographer</option>
+                        <option value="VIDEOGRAPHER">Videographer</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="admin-btn">Add Provider</button>
+        </form>
+    </div>
+
+    <!-- Providers Table -->
+    <table class="admin-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Specialty</th>
+            <th>Rating</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="provider : ${providers}">
+            <td th:text="${provider.name}">Provider Name</td>
+            <td th:text="${provider.specialty}">Specialty</td>
+            <td class="rating" th:text="${provider.rating + ' ★'}">5 ★</td>
+            <td th:text="${provider.providerType}">Type</td>
+            <td>
+                <form th:action="@{/admin/remove-provider}" method="post" style="display: inline;">
+                    <input type="hidden" name="providerName" th:value="${provider.name}">
+                    <button type="submit" class="btn-small btn-delete" onclick="return confirm('Are you sure you want to delete this provider?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
