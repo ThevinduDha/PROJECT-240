@@ -1,20 +1,16 @@
 package com.eventBooking.controllers;
 
-import com.eventBooking.models.booking.Booking;
 import com.eventBooking.models.users.User;
 import com.eventBooking.services.AdminService;
 import com.eventBooking.services.BookingService;
 import com.eventBooking.services.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
 
 @Controller
 public class AuthController {
@@ -75,7 +71,7 @@ public class AuthController {
                 return "admin-dashboard";
             }
             else {
-                session.setAttribute("role", "user");
+                session.setAttribute("role", "com/eventBooking/models/user");
                 return "redirect:/dashboard";
             }
         }
@@ -97,7 +93,7 @@ public class AuthController {
                            @RequestParam String password,
                            @RequestParam String confirmPassword,
                            HttpSession session, Model model) {
-        User newUser = new User(username, password, "user");
+        User newUser = new User(username, password, "com/eventBooking/models/user");
         if (!password.equals(confirmPassword)) {
             model.addAttribute("message", "Passwords do not match");
             return "register";
