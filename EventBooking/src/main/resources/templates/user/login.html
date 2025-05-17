@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Capture Moments</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
+<div class="container">
+    <!-- Left Side - Image -->
+    <div class="login-image">
+        <!--        <div class="login-image-content">-->
+        <!--            <h1>Capture Your Special Moments</h1>-->
+        <!--            <p>Professional photographers for every occasion</p>-->
+        <!--        </div>-->
+    </div>
 
+    <!-- Right Side - Form -->
+    <div class="login-form-container">
+        <div class="logo">
+            <div class="camera-icon">📷</div>
+            <h1>Capture Moments</h1>
+            <p>Professional Photography & Videography Booking</p>
+        </div>
+
+        <div class="form-container">
+            <h2>Welcome back!</h2>
+            <p class="text-secondary" style="text-align: center; margin-bottom: 1.5rem; color: var(--text-secondary);">Please enter your details</p>
+
+            <div th:if="${error}" class="alert alert-error" id="alert-error">
+                <p th:text="${message}">Validation error</p>
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success">
+                You have been logged out successfully
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+
+
+            <p class="signup-link">Don't have an account? <a th:href="@{/register}">Sign up</a></p>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Capture Moments. All rights reserved.</p>
+        </footer>
+    </div>
+</div>
+<script>
+    // Wait for the DOM to load
+    document.addEventListener("DOMContentLoaded", function() {
+        const errorMessage = document.getElementById("alert-error");
+        if (errorMessage) {
+            // Set a timeout to hide the message after 5 seconds
+            setTimeout(() => {
+                errorMessage.style.display = "none";
+            }, 5000); // 3000 milliseconds = 3 seconds
+        }
+    });
+</script>
 </body>
 </html>
