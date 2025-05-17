@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin - Manage Users</title>
+    <link rel="stylesheet" th:href="@{/css/admin-portal/admin-users.css}">
 </head>
 <body>
+<div class="container">
+    <div class="admin-header">
+        <h2>Manage Users</h2>
+        <p>Create, update, and delete user accounts.</p>
+    </div>
 
+    <div class="admin-nav">
+        <a th:href="@{/admin/dashboard}" class="admin-btn">Dashboard</a>
+        <a th:href="@{/admin/users}" class="admin-btn">Manage Users</a>
+        <a th:href="@{/admin/providers}" class="admin-btn">Manage Providers</a>
+        <a th:href="@{/admin/bookings}" class="admin-btn">Manage Bookings</a>
+        <a th:href="@{/admin/packages}" class="admin-btn">Manage Packages</a>
+        <a th:href="@{/admin/reviews}" class="admin-btn">Manage Reviews</a>
+        <a th:href="@{/logout}" class="admin-btn" style="margin-left: auto;">Logout</a>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="message error" th:text="${errorMessage}"></div>
+
+    <!-- Create User Button -->
+    <div style="margin-bottom: 20px;">
+        <a th:href="@{/admin/users/create}" class="admin-btn">Create New User</a>
+    </div>
+
+    <!-- Users Table -->
+    <table class="admin-table">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.email}">email@example.com</td>
+            <td>
+                <a th:href="@{/admin/users/edit/{username}(username=${user.username})}" class="btn-small">Edit</a>
+                <a th:href="@{/admin/users/delete/{username}(username=${user.username})}" class="btn-small btn-delete"
+                   onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
