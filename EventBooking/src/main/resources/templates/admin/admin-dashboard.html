@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/admin-portal/admin-dashboard.css}">
+
+</head>
+<body>
+<div class="container">
+    <div class="admin-header">
+        <h2>Admin Dashboard</h2>
+        <p>Manage users, providers, bookings, packages, and reviews.</p>
+    </div>
+
+    <div class="admin-nav">
+        <a th:href="@{/admin/users}" class="admin-btn">Manage Users</a>
+        <a th:href="@{/admin/providers}" class="admin-btn">Manage Providers</a>
+        <a th:href="@{/admin/bookings}" class="admin-btn">Manage Bookings</a>
+        <a th:href="@{/admin/packages}" class="admin-btn">Manage Packages</a>
+        <a th:href="@{/admin/reviews}" class="admin-btn">Manage Reviews</a>
+        <a th:href="@{/logout}" class="admin-btn" style="margin-left: auto;">Logout</a>
+    </div>
+
+    <h3>Recent Bookings</h3>
+    <table class="admin-table">
+        <tr>
+            <th>Customer</th>
+            <th>Provider</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.username}">User</td>
+            <td th:text="${booking.providerName}">Photographer</td>
+            <td th:text="${booking.formattedDate}">2025-01-01</td>
+            <td th:text="${booking.status}">Pending</td>
+            <td>
+                <!-- Confirm button for pending bookings -->
+                <form th:if="${booking.status == 'pending'}" th:action="@{/admin/confirm}" method="post" style="display: inline;">
+                    <input type="hidden" name="username" th:value="${booking.username}">
+                    <input type="hidden" name="providerName" th:value="${booking.providerName}">
+                    <button type="submit" class="btn-small">Confirm</button>
+                </form>
+
+                <!-- Complete button for confirmed bookings -->
+                <form th:if="${booking.status == 'confirmed'}" th:action="@{/admin/complete}" method="post" style="display: inline;">
+                    <input type="hidden" name="bookingId" th:value="${booking.bookingId}">
+                    <button type="submit" class="btn-small">Mark Completed</button>
+                </form>
+
+                <!-- Show review status for completed bookings -->
+                <span th:if="${booking.status == 'completed'}" style="color: green;">Completed</span>
+
+                <!-- Delete button for any booking -->
+                <a th:href="@{/admin/bookings/delete/{id}(id=${booking.bookingId})}" class="btn-small" style="background-color: #f44336;">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
