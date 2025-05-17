@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave a Review</title>
+    <link rel="stylesheet" th:href="@{/css/review/review-form.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Leave a Review for <span class="provider-name" th:text="${booking.providerName}">Provider</span></h2>
+
+    <div th:if="${errorMessage}" class="message error-message" role="alert" th:text="${errorMessage}"></div>
+    <div th:if="${successMessage}" class="message success-message" role="alert" th:text="${successMessage}"></div>
+
+    <div class="review-form-wrapper">
+        <form th:action="@{/reviews/submit}" method="post" class="review-form">
+            <input type="hidden" name="bookingId" th:value="${booking.bookingId}">
+            <input type="hidden" name="providerName" th:value="${booking.providerName}">
+
+            <div class="form-group static-info">
+                <label>Event Date:</label>
+                <span class="info-text" th:text="${booking.formattedDate}">Date</span>
+            </div>
+
+            <div class="form-group static-info">
+                <label>Event Type:</label>
+                <span class="info-text" th:text="${booking.eventType}">Type</span>
+            </div>
+
+            <div class="form-group rating-group">
+                <label>Your Rating:</label>
+                <div class="rating-stars">
+                    <input type="radio" id="star5" name="rating" value="5" required/>
+                    <label for="star5" title="5 stars - Excellent">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4"/>
+                    <label for="star4" title="4 stars - Very Good">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3"/>
+                    <label for="star3" title="3 stars - Good">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2"/>
+                    <label for="star2" title="2 stars - Fair">&#9733;</label>
+                    <input type="radio" id="star1" name="rating" value="1"/>
+                    <label for="star1" title="1 star - Poor">&#9733;</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="comment">Your Review:</label>
+                <textarea id="comment" name="comment" rows="6" required placeholder="Share your experience with this provider..."></textarea>
+            </div>
+
+            <button type="submit" class="button button-submit">Submit Review</button>
+        </form>
+    </div>
+
+    <div class="back-link-container">
+        <a th:href="@{/bookings/manage}" class="back-link">&larr; Back to My Bookings</a>
+    </div>
+</div>
+
+</body>
+</html>

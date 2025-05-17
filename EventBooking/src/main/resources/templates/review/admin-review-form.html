@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Review</title>
+    <link rel="stylesheet" th:href="@{/css/admin-portal/admin-review-form.css}">
+
+</head>
+<body>
+<div class="container">
+    <div class="admin-header">
+        <h2>Edit Review</h2>
+        <p>Modify the review details.</p>
+    </div>
+    
+    <div class="admin-nav">
+        <a th:href="@{/admin/dashboard}" class="admin-btn">Dashboard</a>
+        <a th:href="@{/admin/reviews}" class="admin-btn">Back to Reviews</a>
+    </div>
+    
+    <form th:action="@{/admin/reviews/update}" method="post">
+        <input type="hidden" name="reviewId" th:value="${reviewId}">
+        <input type="hidden" name="bookingId" th:value="${bookingId}">
+        <input type="hidden" name="username" th:value="${username}">
+        <input type="hidden" name="providerName" th:value="${providerName}">
+        
+        <div class="form-group">
+            <label>Customer:</label>
+            <div class="form-control" style="background-color: #f5f5f5;" th:text="${username}">Username</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Provider:</label>
+            <div class="form-control" style="background-color: #f5f5f5;" th:text="${providerName}">Provider Name</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="rating">Rating:</label>
+            <div class="rating-container">
+                <select id="rating" name="rating" class="form-control" style="width: auto;" required>
+                    <option value="1" th:selected="${rating == 1}">1</option>
+                    <option value="2" th:selected="${rating == 2}">2</option>
+                    <option value="3" th:selected="${rating == 3}">3</option>
+                    <option value="4" th:selected="${rating == 4}">4</option>
+                    <option value="5" th:selected="${rating == 5}">5</option>
+                </select>
+                <span class="rating-star">★</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" class="form-control" required th:text="${comment}">Review comment</textarea>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Update Review</button>
+            <a th:href="@{/admin/reviews}" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

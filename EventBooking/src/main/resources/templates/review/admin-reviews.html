@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Manage Reviews</title>
+    <link rel="stylesheet" th:href="@{/css/admin-portal/admin-reviews.css}">
+</head>L
+<body>
+<div class="container">
+    <div class="admin-header">
+        <h2>Manage Reviews</h2>
+        <p>Edit and delete customer reviews.</p>
+    </div>
+    
+    <div class="admin-nav">
+        <a th:href="@{/admin/dashboard}" class="admin-btn">Dashboard</a>
+        <a th:href="@{/admin/users}" class="admin-btn">Manage Users</a>
+        <a th:href="@{/admin/providers}" class="admin-btn">Manage Providers</a>
+        <a th:href="@{/admin/bookings}" class="admin-btn">Manage Bookings</a>
+        <a th:href="@{/admin/packages}" class="admin-btn">Manage Packages</a>
+        <a th:href="@{/admin/reviews}" class="admin-btn">Manage Reviews</a>
+        <a th:href="@{/logout}" class="admin-btn" style="margin-left: auto;">Logout</a>
+    </div>
+    
+    <!-- Success/Error Messages -->
+    <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="message error" th:text="${errorMessage}"></div>
+    
+    <!-- Reviews Table -->
+    <table class="admin-table">
+        <tr>
+            <th>Review ID</th>
+            <th>Booking ID</th>
+            <th>Customer</th>
+            <th>Provider</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.reviewId}">ID</td>
+            <td th:text="${review.bookingId}">Booking ID</td>
+            <td th:text="${review.username}">User</td>
+            <td th:text="${review.providerName}">Provider</td>
+            <td class="rating" th:text="${review.rating + ' ★'}">5 ★</td>
+            <td class="comment" th:text="${review.comment}" th:title="${review.comment}">Comment</td>
+            <td th:text="${#temporals.format(review.createdAt, 'dd MMM yyyy')}">Date</td>
+            <td>
+                <a th:href="@{/admin/reviews/edit/{id}(id=${review.reviewId})}" class="btn-small">Edit</a>
+                <a th:href="@{/admin/reviews/delete/{id}(id=${review.reviewId})}" class="btn-small btn-delete" 
+                   onclick="return confirm('Are you sure you want to delete this review?')">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
