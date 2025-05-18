@@ -1,0 +1,63 @@
+/* admin-packages.css */
+@import 'admin.css';
+
+/* Styles specific to admin-packages.html */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.package-section {
+    margin-bottom: 40px;
+}
+
+.package-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.package-table th,
+.package-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.package-table th {
+    background-color: var(--primary-green-darker);
+    color: var(--text-lighter);
+    font-weight: 600;
+}
+
+.package-table tr:hover {
+    background-color: var(--surface-dark); /* Subtle hover */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+
+.btn-edit {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+}
+
+.btn-delete {
+    background-color: var(--red-alert);
+    color: var(--text-light);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-lighter);
+}

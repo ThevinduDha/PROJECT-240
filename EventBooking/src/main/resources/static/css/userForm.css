@@ -1,0 +1,132 @@
+/* Assuming you keep the top navigation for now */
+.admin-header {
+    background-color: #388e3c; /* A slightly lighter primary green */
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.admin-header h2 {
+    margin-bottom: 5px;
+    font-size: 1.8em;
+}
+
+.admin-header p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+}
+
+.admin-nav {
+    background-color: #225d27; /* Slightly darker background for contrast */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.admin-nav a {
+    background-color: #43a047; /* A lighter secondary green */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.admin-nav a:hover {
+    background-color: #2e7d32;
+}
+
+.button-create {
+    background-color: #43a047;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.button-create:hover {
+    background-color: #2e7d32;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden; /* To contain the border-radius for header/rows */
+}
+
+.user-table th, .user-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #388e3c;
+    color: white;
+}
+
+.user-table tbody tr:nth-child(even) {
+    background-color: #f1f8e9; /* Your light color */
+}
+
+.user-table tbody tr:hover {
+    background-color: #e0f2f7; /* A subtle hover highlight */
+}
+
+.actions-cell {
+    white-space: nowrap; /* Prevent buttons from wrapping */
+}
+
+.button-edit, .button-delete {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    font-size: 0.9em;
+}
+
+.button-edit {
+    background-color: #43a047;
+    color: white;
+    margin-right: 5px;
+}
+
+.button-delete {
+    background-color: #e53935; /* A softer red */
+    color: white;
+}
+
+.button-edit:hover, .button-delete:hover {
+    opacity: 0.8;
+}
+
+.logout-button {
+    background-color: #f44336; /* A distinct color for logout */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    float: right; /* Keep it on the right */
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Basic container styling (if not already present) */
+.container {
+    padding: 20px;
+    max-width: 1200px; /* Example max width */
+    margin: 0 auto;
+}

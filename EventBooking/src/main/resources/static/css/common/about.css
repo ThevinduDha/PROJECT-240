@@ -1,0 +1,95 @@
+@import '../style.css';
+
+/* About Page Additions */
+.section-title {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.team-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.team-info {
+    padding: 1.5rem;
+}
+
+.team-role {
+    color: var(--accent-color);
+    font-weight: 500;
+    margin: 0.5rem 0;
+}
+
+.team-bio {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.value-card {
+    background: var(--secondary-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-link.active {
+    color: var(--accent-color);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--secondary-bg);
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.social-links img:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,336 @@
+/* Import Google Font */
+
+:root {
+    --primary-bg: #0f0e17;
+    --secondary-bg: #1a1935; /* Used for form elements */
+    --accent-color: #9d4edd;
+    --accent-hover: #7b2cbf;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --text-placeholder: #6c6a80; /* For placeholder text */
+
+    --container-bg: #161529;
+    --border-color: #2f2c4d;
+    --input-border-focus: var(--accent-color);
+
+    --success-bg: rgba(60, 179, 113, 0.15);
+    --success-text: #3cb371;
+    --success-border: #3cb371;
+
+    --error-bg: rgba(220, 53, 69, 0.15);
+    --error-text: #dc3545;
+    --error-border: #dc3545;
+
+    --star-default-color: #4a4760; /* Dimmed star color */
+    --star-selected-color: #ffc107; /* Gold for selected stars */
+    --star-hover-color: #ffd700;   /* Brighter gold for hover */
+
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --button-shadow-color: rgba(157, 78, 221, 0.3);
+
+    --transition-speed: 0.3s;
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for longer forms */
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    background-color: var(--container-bg);
+    padding: 35px 45px;
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    max-width: 700px; /* Adjusted for a typical form width */
+    opacity: 0;
+    transform: translateY(25px);
+    animation: fadeInContainer 0.7s var(--transition-speed) ease-out forwards;
+}
+
+@keyframes fadeInContainer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+h2 .provider-name {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+/* Flash Messages */
+.message {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    text-align: center;
+    border-left: 5px solid transparent;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeInAlert 0.5s 0.2s ease-out forwards; /* Delay animation */
+}
+
+@keyframes fadeInAlert {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.success-message {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-left-color: var(--success-border);
+}
+
+.error-message {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-left-color: var(--error-border);
+}
+
+/* Form Styling */
+.review-form-wrapper {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpForm 0.6s 0.4s ease-out forwards; /* Delay animation */
+}
+
+@keyframes fadeInUpForm {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.review-form .form-group {
+    margin-bottom: 25px;
+}
+
+.review-form label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.review-form .static-info label {
+    display: inline; /* For side-by-side display with info-text */
+    margin-right: 8px;
+}
+.review-form .static-info .info-text {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+
+.review-form input[type="text"], /* Though not used, good for consistency */
+.review-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.review-form input[type="text"]::placeholder,
+.review-form textarea::placeholder {
+    color: var(--text-placeholder);
+}
+
+.review-form input[type="text"]:focus,
+.review-form textarea:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.25); /* Accent color glow */
+}
+
+.review-form textarea {
+    resize: vertical; /* Allow vertical resize, disable horizontal */
+    min-height: 120px;
+}
+
+/* Star Rating System */
+.rating-group label { /* "Your Rating:" label */
+    margin-bottom: 12px;
+}
+.rating-stars {
+    display: inline-flex; /* Aligns stars in a row */
+    flex-direction: row-reverse; /* Crucial: stars fill right-to-left */
+    justify-content: flex-end; /* Aligns stars to the right if container is wider */
+}
+
+.rating-stars input[type="radio"] {
+    display: none; /* Hide the actual radio buttons */
+}
+
+.rating-stars label { /* These are the star characters */
+    font-size: 2.5rem; /* Size of the star characters */
+    color: var(--star-default-color);
+    padding: 0 3px; /* Spacing between stars */
+    cursor: pointer;
+    transition: color var(--transition-speed) ease;
+    margin-bottom: 0; /* Override default form-group label margin */
+}
+
+/* When a star (radio) is checked, color it and all previous siblings (stars to its right in display) */
+.rating-stars input[type="radio"]:checked ~ label {
+    color: var(--star-selected-color);
+}
+
+/* Hover effect: color the hovered star and all stars to its right */
+.rating-stars label:hover,
+.rating-stars label:hover ~ label { /* Color stars up to the hovered one */
+    color: var(--star-hover-color) !important; /* Important to override checked state for hover preview */
+}
+
+/* Ensure that :checked styles take precedence over general hover if not using !important on hover */
+.rating-stars input[type="radio"]:checked ~ label {
+    color: var(--star-selected-color);
+}
+
+
+/* Submit Button */
+.button { /* Base button style, can be reused */
+    padding: 12px 28px;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition-speed) var(--transition-bounce);
+    display: inline-block;
+    text-align: center;
+    border: 2px solid transparent;
+    transform-origin: center;
+}
+.button:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+.button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.button-submit {
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+    width: 100%; /* Make button full width */
+    margin-top: 15px; /* Space above button */
+}
+
+.button-submit:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    box-shadow: 0 7px 15px var(--button-shadow-color);
+}
+
+/* Back Link */
+.back-link-container {
+    text-align: center;
+    margin-top: 35px;
+    opacity: 0;
+    animation: fadeInUpForm 0.6s 0.6s ease-out forwards; /* Delay animation */
+}
+
+.back-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+    .container {
+        padding: 30px 30px;
+    }
+    h2 {
+        font-size: 1.9rem;
+    }
+    .review-form input[type="text"],
+    .review-form textarea {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+    .rating-stars label {
+        font-size: 2.2rem;
+    }
+    .button {
+        padding: 11px 24px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+    .container {
+        padding: 25px 20px;
+    }
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+    .review-form .form-group {
+        margin-bottom: 20px;
+    }
+    .review-form label {
+        font-size: 0.85rem;
+    }
+    .rating-stars label {
+        font-size: 2rem; /* Slightly smaller stars on mobile */
+        padding: 0 2px;
+    }
+    .button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .message {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+    .back-link-container {
+        margin-top: 25px;
+    }
+}

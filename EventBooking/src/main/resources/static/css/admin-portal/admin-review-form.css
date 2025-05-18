@@ -1,0 +1,49 @@
+/* admin-review-form.css */
+@import 'admin.css';
+
+/* Styles specific to admin-review-form.html */
+
+.review-form {
+    background-color: var(--surface-dark);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px var(--box-shadow);
+}
+
+.review-form h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: var(--text-light);
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rating-star {
+    color: var(--accent-green);
+    font-size: 1.2em;
+}
+
+.form-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn-submit {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-green-darker);
+    transform: translateY(-2px);
+}

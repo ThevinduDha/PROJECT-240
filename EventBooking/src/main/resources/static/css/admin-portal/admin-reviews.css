@@ -1,0 +1,43 @@
+/* admin-reviews.css */
+@import 'admin.css';
+
+/* Styles specific to admin-reviews.html */
+
+.review-form {
+    background-color: var(--surface-dark);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px var(--box-shadow);
+}
+
+.review-form h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: var(--text-light);
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: rgba(67, 160, 71, 0.1);
+    color: var(--success-green);
+    border: 1px solid var(--success-green);
+}
+
+.error {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--red-alert);
+    border: 1px solid var(--red-alert);
+}
+
+.comment {
+    max-width: 200px; /* Adjust as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -1,0 +1,16 @@
+/* admin-bookings.css */
+@import 'admin.css'; /* Import base styles */
+
+/* Specific styles for admin-bookings.html */
+
+.status-pending {
+    color: #ff9800; /* Amber color for pending */
+}
+
+.status-confirmed {
+    color: var(--success-green);
+}
+
+.status-completed {
+    color: #2196f3; /* Blue for completed */
+}

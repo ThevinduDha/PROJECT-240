@@ -1,0 +1,197 @@
+:root {
+    --primary-bg: #0f0e17;
+    --secondary-bg: #1a1935;
+    --accent-color: #9d4edd;
+    --accent-hover: #7b2cbf;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --card-overlay: rgba(15, 14, 23, 0.7);
+    --card-overlay-hover: rgba(15, 14, 23, 0.5);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-bg);
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+}
+
+.gallery-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.gallery-left, .gallery-right {
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.gallery-left {
+    flex: 3;
+    background-color: var(--primary-bg);
+    overflow-y: auto;
+}
+
+.gallery-right {
+    flex: 1;
+    background-color: var(--secondary-bg);
+    border-left: 2px solid var(--accent-color);
+    overflow-y: auto;
+    color: var(--text-secondary);
+}
+
+.gallery-header {
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin: 0;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.controls select,
+.controls button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.controls button:hover,
+.controls select:hover {
+    background-color: var(--accent-hover);
+}
+
+.providers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.provider-card {
+    background: var(--secondary-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.provider-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card-image {
+    height: 160px;
+    background: var(--card-overlay);
+    position: relative;
+}
+
+.rating-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.rating-badge i {
+    margin-right: 0.3rem;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card-content h3 {
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+}
+
+.card-content .specialty,
+.card-content .resolution {
+    margin: 0.2rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.sample-work {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.sample-thumbnail {
+    flex: 1;
+    height: 60px;
+    background-color: var(--card-overlay);
+    border-radius: 6px;
+}
+
+.book-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.book-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+.provider-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.provider-list li {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--card-overlay);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.provider-list li:hover {
+    background-color: var(--card-overlay-hover);
+    color: var(--text-primary);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+.provider-card:nth-child(1) { animation-delay: 0.1s; }
+.provider-card:nth-child(2) { animation-delay: 0.2s; }
+.provider-card:nth-child(3) { animation-delay: 0.3s; }
+.provider-card:nth-child(4) { animation-delay: 0.4s; }
+.provider-card:nth-child(5) { animation-delay: 0.5s; }
+.provider-card:nth-child(6) { animation-delay: 0.6s; }

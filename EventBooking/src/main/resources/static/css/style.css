@@ -1,0 +1,506 @@
+/* Color Variables */
+:root {
+    --primary-bg: #0f0e17;
+    --secondary-bg: #1a1935;
+    --accent-color: #9d4edd;
+    --accent-hover: #7b2cbf;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --admin-color: #ff6d00;
+    --error-color: #ff3860;
+    --success-color: #09c372;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+
+
+
+
+
+/*Styling for Index page*/
+/* Define color variables */
+:root {
+    --primary-bg: #0f0e17;
+    --secondary-bg: #1a1935;
+    --accent-color: #9d4edd;
+    --accent-hover: #7b2cbf;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --admin-color: #ff6d00; /* Not used in this specific layout */
+    --error-color: #ff3860;  /* Not used in this specific layout */
+    --success-color: #09c372; /* Not used in this specific layout */
+
+    --border-radius: 20px;
+    --section-padding: 50px 0;
+    --card-padding: 25px;
+}
+
+/* Global Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.container {
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.8em;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.8rem; /* Larger for main heading */
+}
+
+h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px; /* More space below section titles */
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: var(--accent-color); /* Use accent for feature titles */
+}
+
+p {
+    color: var(--text-secondary);
+    margin-bottom: 1em;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* Header / Hero Section */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px; /* Space between logo and CTA when wrapped */
+    border-bottom: 1px solid var(--secondary-bg); /* Subtle separator */
+    margin-bottom: var(--section-padding);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icon and text */
+}
+
+.logo .camera-icon {
+    font-size: 3rem; /* Make icon larger */
+    color: var(--accent-color);
+}
+
+.logo h1 {
+    margin-bottom: 0.1em; /* Reduce space below h1 */
+    font-size: 2.5rem; /* Adjust size */
+}
+
+.logo p {
+    margin-bottom: 0; /* Remove space below tagline */
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.hero-cta {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    font-size: 1rem;
+    border: 2px solid transparent; /* Base border */
+}
+
+.btn-lg {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+    transform: scale(1.03); /* Subtle lift effect */
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: var(--text-primary);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.btn-outline:hover {
+    transform: scale(1.03); /* Subtle lift effect */
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+}
+
+/* Features Section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    padding: var(--section-padding) 0;
+    text-align: center;
+}
+
+.feature-card {
+    background-color: var(--secondary-bg);
+    padding: var(--card-padding);
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px) scale(1.03); /* Subtle lift effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    font-size: 3rem; /* Larger icons */
+    margin-bottom: 15px;
+    color: var(--accent-color); /* Color the icons */
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+/* About Section */
+.about {
+    padding: var(--section-padding) 30px;
+    text-align: center;
+    background-color: var(--secondary-bg); /* Give it a slightly different background */
+    margin: var(--section-padding) 0;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about p {
+    max-width: 700px; /* Constrain text width for readability */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px; /* Space before button */
+    color: var(--text-primary); /* Make about text slightly brighter */
+}
+
+.about:hover {
+    transform: translateY(-5px); /* Subtle lift effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: var(--section-padding) 0;
+}
+
+.testimonial-card {
+    background-color: var(--secondary-bg);
+    padding: var(--card-padding);
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    margin: 0 auto 20px auto; /* Center card and add bottom margin if multiple */
+    text-align: center;
+    border-left: 5px solid var(--accent-color); /* Accent border */
+}
+
+.testimonial-card p {
+    font-style: italic;
+    color: var(--text-primary);
+    margin-bottom: 15px; /* Space before client name */
+    font-size: 1.1rem;
+}
+
+.client {
+    font-weight: bold;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-bg);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 40px 10px;
+    margin-top: var(--section-padding) 5px;
+}
+
+.footer-links {
+    margin: 15px 0;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    margin: 0 10px;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+.social-links a {
+    font-size: 1.8rem; /* Larger social icons */
+    margin: 0 8px;
+    color: var(--text-secondary);
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+footer p {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero {
+        flex-direction: column; /* Stack logo and CTA */
+        text-align: center; /* Center items when stacked */
+    }
+
+    .logo {
+        justify-content: center; /* Center logo items */
+        flex-direction: column; /* Stack camera icon above text */
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    .logo .camera-icon {
+        font-size: 2.5rem;
+    }
+
+    .logo h1 {
+        font-size: 2rem;
+    }
+
+
+    .hero-cta {
+        justify-content: center; /* Center buttons */
+        width: 100%;
+    }
+
+    .features {
+        grid-template-columns: 1fr; /* Stack feature cards */
+        gap: 20px;
+    }
+
+    .btn-lg {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .hero-cta {
+        flex-direction: column; /* Stack buttons */
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 80%; /* Make buttons wider */
+        max-width: 300px;
+    }
+
+    .footer-links, .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-links a, .social-links a {
+        margin: 0;
+    }
+}
+
+
+
+
+
+/* About Page Additions */
+.section-title {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.team-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.team-info {
+    padding: 1.5rem;
+}
+
+.team-role {
+    color: var(--accent-color);
+    font-weight: 500;
+    margin: 0.5rem 0;
+}
+
+.team-bio {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.value-card {
+    background: var(--secondary-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-link.active {
+    color: var(--accent-color);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--secondary-bg);
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.social-links img:hover {
+    opacity: 0.8;
+}

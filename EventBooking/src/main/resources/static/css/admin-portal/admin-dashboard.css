@@ -1,0 +1,33 @@
+/* admin-dashboard.css */
+@import 'admin.css';
+
+/* Styles specific to admin-dashboard.html */
+
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    background-color: var(--surface-dark);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--box-shadow);
+}
+
+.summary-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--accent-green);
+}
+
+.summary-card p {
+    font-size: 1.1em;
+}
+
+/* Overriding table styles for dashboard if needed */
+.dashboard-bookings-table {
+    /* ... (Adjust table styles if necessary) */
+}

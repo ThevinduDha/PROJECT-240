@@ -1,0 +1,23 @@
+/* admin-users.css */
+@import 'admin.css';
+
+/* Styles specific to admin-users.html */
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.user-form {
+    background-color: var(--surface-dark);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px var(--box-shadow);
+}
+
+.user-form h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: var(--text-light);
+}
