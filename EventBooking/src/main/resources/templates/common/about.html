@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Capture Moments</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Additional about page specific styles */
+        .hero-about {
+            background: linear-gradient(135deg, rgba(15,14,23,0.9) 0%, rgba(157,78,221,0.7) 100%),
+            url('../../static/img/image1.jpg') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .team-card {
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(157,78,221,0.2);
+        }
+
+        .mission-statement {
+            background: var(--secondary-bg);
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header with Navigation -->
+    <header class="dashboard-header">
+        <div class="logo">
+            <div class="camera-icon">📷</div>
+            <h1>Capture Moments</h1>
+        </div>
+        <nav>
+            <a th:href="@{/static}" class="nav-link">Home</a>
+            <a th:href="@{/about}" class="nav-link active">About</a>
+            <a th:href="@{/gallery}" class="nav-link">Gallery</a>
+            <a th:href="@{/bookings}" class="nav-link">Bookings</a>
+        </nav>
+        <div class="user-info">
+            <a th:href="@{/logout}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-about">
+        <div class="hero-content">
+            <h2>Our Story</h2>
+            <p>Capturing life's most precious moments since 2015</p>
+        </div>
+    </section>
+
+    <!-- Mission Statement -->
+    <section class="mission-statement">
+        <h2 class="section-title">Our Mission</h2>
+        <p>At Capture Moments, we believe every eventType tells a unique story. Our mission is to preserve these stories through stunning photography and videography, creating timeless memories you'll cherish forever.</p>
+        <p>We combine technical expertise with artistic vision to deliver exceptional quality for weddings, corporate events, and special occasions.</p>
+    </section>
+
+    <!-- Team Section -->
+    <section>
+        <h2 class="section-title">Meet The Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img th:src="@{/images/team1.jpg}" alt="Sarah Johnson" class="team-photo">
+                <div class="team-info">
+                    <h3>Sarah Johnson</h3>
+                    <p class="team-role">Founder & Lead Photographer</p>
+                    <p class="team-bio">With over 15 years experience, Sarah specializes in wedding and portrait photography.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <img th:src="@{/images/team2.jpg}" alt="Michael Chen" class="team-photo">
+                <div class="team-info">
+                    <h3>Michael Chen</h3>
+                    <p class="team-role">Videographer</p>
+                    <p class="team-bio">Michael brings cinematic quality to every eventType with his documentary-style approach.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <img th:src="@{/images/team3.jpg}" alt="Emma Rodriguez" class="team-photo">
+                <div class="team-info">
+                    <h3>Emma Rodriguez</h3>
+                    <p class="team-role">Event Coordinator</p>
+                    <p class="team-bio">Emma ensures every photoshoot runs smoothly from planning to delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <h2 class="section-title">Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">✨</div>
+                <h3>Creativity</h3>
+                <p>We approach each project with fresh eyes and innovative techniques.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Integrity</h3>
+                <p>Honest pricing and transparent communication with every client.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">📷</div>
+                <h3>Quality</h3>
+                <p>Using only professional equipment and editing software.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">❤️</div>
+                <h3>Passion</h3>
+                <p>We genuinely love what we do and it shows in our work.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 Capture Moments. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><img th:src="@{/images/instagram-icon.svg}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/images/facebook-icon.svg}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/images/twitter-icon.svg}" alt="Twitter"></a>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

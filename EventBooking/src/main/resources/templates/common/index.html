@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Moments | Professional Event Photography</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="hero">
+        <div class="logo">
+            <div class="camera-icon">📷</div>
+            <h1>Capture Moments</h1>
+            <p>Professional Photography & Videography Services</p>
+        </div>
+        <div class="hero-cta">
+            <a th:href="@{/register}" class="btn btn-primary btn-lg">Get Started</a>
+            <a th:href="@{/login}" class="btn btn-outline btn-lg">Login</a>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">📸</div>
+            <h3>Professional Photographers</h3>
+            <p>Hand-picked experts for every occasion</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎥</div>
+            <h3>4K Videography</h3>
+            <p>Cinematic quality video services</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⏱️</div>
+            <h3>Flexible Booking</h3>
+            <p>Schedule at your convenience</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>Your Memories, Our Passion</h2>
+        <p>At Capture Moments, we connect you with the best photography professionals for weddings, corporate events, birthdays, and more. Our easy booking system ensures you get the perfect photographer for your special occasion.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+            <a th:href="@{/gallery}" class="btn btn-primary">Browse Providers</a>
+            <a th:href="@{/packages}" class="btn btn-primary">View Packages</a>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial-card">
+            <p>"The photographer was amazing! Captured every special moment at our wedding."</p>
+            <div class="client">- Sarah J.</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Capture Moments. All rights reserved.</p> <div class="footer-links">
+        <a th:href="@{/about}">About Us</a>
+        <a th:href="@{/contact}">Contact</a>
+        <a th:href="@{/privacy}">Privacy Policy</a>
+        <a th:href="@{/admin/login}" class="admin-link">Admin Portal</a>
+    </div>
+        <div class="social-links">
+            <a href="#" title="Social Media">📱</a>
+            <a href="#" title="Website/Portfolio">💻</a>
+            <a href="#" title="Email">📧</a>
+        </div>
+        <style>
+            .admin-link {
+                margin-left: 10px;
+                color: #2e7d32;
+                font-weight: bold;
+            }
+            .admin-link:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </footer>
+</div>
+</body>
+</html>

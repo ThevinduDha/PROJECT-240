@@ -26,7 +26,7 @@ hide empty fields
 
 ' Model Classes
 together {
-  package "com.eventBooking.models.user" {
+  package "com.eventBooking.models.users" {
     class User {
       -email: String
       -username: String
