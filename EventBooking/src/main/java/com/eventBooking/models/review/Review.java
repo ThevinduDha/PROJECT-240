@@ -9,9 +9,22 @@ public class Review {
     private final String bookingId;
     private final String username;
     private final String providerName;
-    private final int rating;
-    private final String comment;
-    private final LocalDateTime createdAt;
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setCreatedAt() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private int rating;
+    private String comment;
+    private LocalDateTime createdAt;
 
     public Review(String bookingId, String username, String providerName, int rating, String comment) {
         this.reviewId = UUID.randomUUID().toString();
@@ -61,6 +74,8 @@ public class Review {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+
 
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

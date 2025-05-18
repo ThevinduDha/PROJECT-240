@@ -83,7 +83,7 @@ public class AdminController {
             @RequestParam String providerName,
             @RequestParam String eventDate,
             @RequestParam String location,
-            @RequestParam String eventTyple,
+            @RequestParam String eventType,
             @RequestParam(required = false) String packageName,
             RedirectAttributes redirectAttributes,
             HttpSession session) {
@@ -97,13 +97,13 @@ public class AdminController {
                 // Get the package details
                 Package selectedPackage = packageService.getPackageByName(packageName).orElse(null);
                 if (selectedPackage != null) {
-                    booking = new Booking(username, providerName, eventDate, location, eventTyple, "pending", 
+                    booking = new Booking(username, providerName, eventDate, location, eventType, "pending",
                                          selectedPackage.getName(), selectedPackage.getPrice());
                 } else {
-                    booking = new Booking(username, providerName, eventDate, location, eventTyple, "pending");
+                    booking = new Booking(username, providerName, eventDate, location, eventType, "pending");
                 }
             } else {
-                booking = new Booking(username, providerName, eventDate, location, eventTyple, "pending");
+                booking = new Booking(username, providerName, eventDate, location, eventType, "pending");
             }
 
             boolean success = bookingService.createBooking(booking);
