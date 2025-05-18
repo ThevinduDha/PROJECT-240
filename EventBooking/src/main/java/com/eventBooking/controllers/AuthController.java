@@ -94,16 +94,58 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@RequestParam String username,
+                           @RequestParam String email,
                            @RequestParam String password,
                            @RequestParam String confirmPassword,
                            HttpSession session, Model model) {
-        User newUser = new User(username, password, "user");
+        // Validate password
         if (!password.equals(confirmPassword)) {
             model.addAttribute("message", "Passwords do not match");
+            model.addAttribute("error", true);
             return "user/register";
         }
+
+        // Password should be at least 8 characters
+        if (password.length() < 8) {
+            model.addAttribute("message", "Password must be at least 8 characters long");
+            model.addAttribute("error", true);
+            return "user/register";
+        }
+
+        // Password should include both letters and numbers
+        boolean hasLetter = false;
+        boolean hasNumber = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isLetter(c)) {
+                hasLetter = true;
+            } else if (Character.isDigit(c)) {
+                hasNumber = true;
+            }
+
+            if (hasLetter && hasNumber) {
+                break;
+            }
+        }
+
+        if (!hasLetter || !hasNumber) {
+            model.addAttribute("message", "Password must include both letters and numbers");
+            model.addAttribute("error", true);
+            return "user/register";
+        }
+
+        // Validate email
+        if (!email.contains("@")) {
+            model.addAttribute("message", "Invalid email address. Email must contain '@'");
+            model.addAttribute("error", true);
+            return "user/register";
+        }
+
+        User newUser = new User(username, password, email);
         if (userService.registerUser(newUser)){
-            return "common/dashboard";
+            session.setAttribute("username", username);
+            session.setAttribute("password", password);
+            session.setAttribute("role", "user");
+            return "redirect:/dashboard";
         }
         else {
             model.addAttribute("message", "User already exists. Login instead");
