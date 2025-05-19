@@ -1,0 +1,39 @@
+/* admin-admins.css */
+@import 'admin.css';
+
+/* Styles specific to admin-admins.html */
+
+.admin-table {
+    margin-top: 20px;
+}
+
+.admin-table th:nth-child(1),
+.admin-table td:nth-child(1) {
+    width: 30%;
+}
+
+.admin-table th:nth-child(2),
+.admin-table td:nth-child(2) {
+    width: 50%;
+}
+
+.admin-table th:nth-child(3),
+.admin-table td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+}
+
+.btn-delete {
+    background-color: var(--red-alert);
+    color: var(--text-light);
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-delete:hover {
+    background-color: var(--red-alert-darker);
+    transform: translateY(-1px);
+}
