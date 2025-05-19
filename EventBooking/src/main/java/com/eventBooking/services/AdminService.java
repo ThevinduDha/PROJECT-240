@@ -58,4 +58,33 @@ public class AdminService {
             return false;
         }
     }
+
+    public boolean deleteAdmin(String username) {
+        List<Admin> admins = getAllAdmins();
+        List<String> adminLines = new ArrayList<>();
+        boolean found = false;
+
+        for (Admin admin : admins) {
+            if (!admin.getUsername().equals(username)) {
+                adminLines.add(admin.getUsername() + "," + admin.getPassword());
+            } else {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return false; // Admin not found
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ADMIN_FILE))) {
+            for (String line : adminLines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            return true;
+        } catch (IOException e) {
+            logger.error("Error writing to admin.txt: {}", e.getMessage());
+            return false;
+        }
+    }
 }
