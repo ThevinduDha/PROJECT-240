@@ -22,6 +22,8 @@ import com.eventBooking.models.user.User;
 import com.eventBooking.services.UserService;
 import com.eventBooking.models.review.Review;
 import com.eventBooking.services.ReviewService;
+import com.eventBooking.models.admin.Admin;
+import com.eventBooking.services.AdminService;
 
 
 
@@ -32,6 +34,7 @@ public class AdminController {
     private final ProviderService providerService = new ProviderService();
     private final UserService userService = new UserService();
     private final ReviewService reviewService = new ReviewService();
+    private final AdminService adminService = new AdminService();
 
     @Autowired
     private PackageService packageService;
@@ -563,5 +566,77 @@ public class AdminController {
         }
 
         return "redirect:/admin/reviews";
+    }
+
+    // Admin management methods
+
+    @GetMapping("/admins")
+    public String adminAdmins(Model model, HttpSession session) {
+        if (!isAdmin(session)) return "user/login";
+
+        List<Admin> admins = adminService.getAllAdmins();
+        model.addAttribute("admins", admins);
+
+        return "admin/admin-admins";
+    }
+
+    @GetMapping("/admins/create")
+    public String showCreateAdminForm(Model model, HttpSession session) {
+        if (!isAdmin(session)) return "user/login";
+
+        model.addAttribute("isEdit", false);
+        return "admin/admin-form";
+    }
+
+    @PostMapping("/admins/create")
+    public String createAdmin(
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam String email,
+            RedirectAttributes redirectAttributes,
+            HttpSession session) {
+
+        if (!isAdmin(session)) return "user/login";
+
+        try {
+            Admin admin = new Admin(username, password, email);
+            boolean success = adminService.registerAdmin(admin);
+
+            if (success) {
+                redirectAttributes.addFlashAttribute("successMessage", "Admin created successfully!");
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", "Failed to create admin. Username may already exist.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to create admin: " + e.getMessage());
+        }
+
+        return "redirect:/admin/admins";
+    }
+
+    @GetMapping("/admins/delete/{username}")
+    public String deleteAdmin(
+            @PathVariable String username,
+            RedirectAttributes redirectAttributes,
+            HttpSession session) {
+
+        if (!isAdmin(session)) return "user/login";
+
+        // Don't allow deleting the current admin
+        String currentUsername = (String) session.getAttribute("username");
+        if (username.equals(currentUsername)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "You cannot delete your own admin account.");
+            return "redirect:/admin/admins";
+        }
+
+        boolean success = adminService.deleteAdmin(username);
+
+        if (success) {
+            redirectAttributes.addFlashAttribute("successMessage", "Admin deleted successfully!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete admin.");
+        }
+
+        return "redirect:/admin/admins";
     }
 }
