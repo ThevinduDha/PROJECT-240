@@ -1,6 +1,0 @@
-PHOTO,Basic Photography,299,4,100
-PHOTO,Standard Photography,499,6,200
-PHOTO,Premium Photography,799,8,400
-VIDEO,Basic Videography,399,4,15
-VIDEO,Standard Videography,699,6,30
-VIDEO,Premium Videography,999,8,60

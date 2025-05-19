@@ -1,2 +1,0 @@
-Photographer1,Wedding,3,200MP,PHOTOGRAPHER
-Videographer1,Birthday,4,4K,VIDEOGRAPHER
