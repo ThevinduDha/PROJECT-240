@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class BookingService {
     private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
     private static final String BOOKING_FILE = "data/bookings.txt";
-    private final Queue<Booking> bookingQueue = new LinkedList<>();
+    private final BookingQueue bookingQueue = new BookingQueue();
 
     public BookingService() {
         loadBookingsToQueue();
@@ -20,16 +20,16 @@ public class BookingService {
 
     public Booking getBookingById(String bookingId, String username) {
         logger.debug("Searching for booking with ID: {} for user: {}", bookingId, username);
-        
+
         // First, ensure the bookings are loaded
         if (bookingQueue.isEmpty()) {
             loadBookingsToQueue();
         }
-        
+
         // Get all bookings for the user
         List<Booking> userBookings = getBookingsByUser(username);
         logger.debug("Found {} bookings for user {}", userBookings.size(), username);
-        
+
         // Search for the specific booking
         for (Booking booking : userBookings) {
             if (booking.getBookingId().equals(bookingId)) {
@@ -37,7 +37,7 @@ public class BookingService {
                 return booking;
             }
         }
-        
+
         logger.warn("No booking found with ID: {} for user: {}", bookingId, username);
         return null;
     }
@@ -45,12 +45,12 @@ public class BookingService {
     private void loadBookingsToQueue() {
         logger.debug("Loading bookings from file: {}", BOOKING_FILE);
         File bookingFile = new File(BOOKING_FILE);
-        
+
         // Create the directory if it doesn't exist
         if (!bookingFile.getParentFile().exists()) {
             bookingFile.getParentFile().mkdirs();
         }
-        
+
         // Create the file if it doesn't exist
         if (!bookingFile.exists()) {
             try {
@@ -61,7 +61,7 @@ public class BookingService {
                 return;
             }
         }
-        
+
         try (BufferedReader reader = new BufferedReader(new FileReader(BOOKING_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -76,7 +76,7 @@ public class BookingService {
         } catch (IOException e) {
             logger.error("Error loading bookings into queue: {}", e.getMessage());
         }
-        
+
         logger.info("Loaded {} bookings from file", bookingQueue.size());
     }
 
@@ -92,7 +92,7 @@ public class BookingService {
     }
 
     public List<Booking> getAllBookings() {
-        return new ArrayList<>(bookingQueue);
+        return bookingQueue.toArrayList();
     }
 
     public List<Booking> getBookingsByUser(String username) {
@@ -161,10 +161,16 @@ public class BookingService {
     }
 
     public Optional<Booking> findBookingById(String bookingId) {
-        // loadQueueFromFile(); // Uncomment if your bookingQueue is not always live
-        return bookingQueue.stream()
-                .filter(booking -> booking.getBookingId().equals(bookingId))
-                .findFirst();
+        loadQueueFromFile(); // Load the queue from file to ensure we have the latest data
+        return bookingQueue.findFirst(booking -> booking.getBookingId().equals(bookingId));
+    }
+
+    /**
+     * Loads the booking queue from file.
+     * This method is a wrapper for loadBookingsToQueue() for better readability.
+     */
+    public void loadQueueFromFile() {
+        loadBookingsToQueue();
     }
 
 
