@@ -114,14 +114,11 @@ public class BookingQueue implements Iterable<Booking> {
                 }
                 
                 if (beforePrevious == null) {
-                    // Removing the first element
                     head = current;
                 } else {
-                    // Removing an element in the middle
                     beforePrevious.next = current;
                 }
                 
-                // If we're removing the last element, update the tail
                 if (previous == tail) {
                     tail = beforePrevious;
                 }
