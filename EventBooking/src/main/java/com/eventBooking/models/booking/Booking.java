@@ -83,13 +83,10 @@ public class Booking {
 
     public void setFormattedDate() {
         String dateString = eventDate;
-        // Parse the string to LocalDate
         LocalDate date = LocalDate.parse(dateString);
 
-        // Define the output format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy");
 
-        // Format the date
         String formattedDate = date.format(formatter);
 
         logger.debug("Formatted date: {}", formattedDate);
