@@ -1,6 +1,7 @@
 package com.eventBooking.services;
 
 import com.eventBooking.models.booking.Booking;
+import com.eventBooking.models.pricing.Package;
 
 import java.io.*;
 import java.util.*;
@@ -109,6 +110,37 @@ public class BookingService {
         bookingQueue.add(booking); // Enqueue the new booking
         saveQueueToFile();
         return true;
+    }
+
+    /**
+     * Creates a Booking object with optional package details.
+     * 
+     * @param username The username of the user making the booking
+     * @param providerName The name of the provider
+     * @param eventDate The date of the event
+     * @param location The location of the event
+     * @param eventType The type of event
+     * @param packageName The name of the package (can be null or empty)
+     * @param packageService The package service to retrieve package details
+     * @return A new Booking object
+     */
+    public Booking createBookingObject(String username, String providerName, String eventDate, 
+                                      String location, String eventType, String packageName,
+                                      PackageService packageService) {
+        Booking booking;
+        if (packageName != null && !packageName.isEmpty()) {
+            // Get the package details
+            Package selectedPackage = packageService.getPackageByName(packageName).orElse(null);
+            if (selectedPackage != null) {
+                booking = new Booking(username, providerName, eventDate, location, eventType, "pending",
+                        selectedPackage.getName(), selectedPackage.getPrice());
+            } else {
+                booking = new Booking(username, providerName, eventDate, location, eventType, "pending");
+            }
+        } else {
+            booking = new Booking(username, providerName, eventDate, location, eventType, "pending");
+        }
+        return booking;
     }
 
     public void updateBookingStatus(String username, String providerName, String newStatus) {
