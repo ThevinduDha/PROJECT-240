@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Admins</title>
+    <link rel="stylesheet" th:href="@{/css/admin-portal/admin-admins.css}">
+</head>
+<body>
+<div class="container">
+    <div class="admin-header">
+        <h2>Manage Admins</h2>
+        <p>Create and delete admin accounts.</p>
+    </div>
+
+    <div class="admin-nav">
+        <a th:href="@{/admin/dashboard}" class="admin-btn">Back to Dashboard</a>
+        <a th:href="@{/admin/admins/create}" class="admin-btn">Create New Admin</a>
+        <a th:href="@{/logout}" class="admin-btn" style="margin-left: auto;">Logout</a>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-error" th:text="${errorMessage}"></div>
+
+    <h3>Admin Accounts</h3>
+    <table class="admin-table">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="admin : ${admins}">
+            <td th:text="${admin.username}">admin</td>
+            <td th:text="${admin.email}">admin@example.com</td>
+            <td>
+                <a th:href="@{/admin/admins/delete/{username}(username=${admin.username})}" 
+                   class="btn-small btn-delete"
+                   onclick="return confirm('Are you sure you want to delete this admin?');">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
