@@ -91,20 +91,8 @@ public class AdminController {
         if (!isAdmin(session)) return "user/login";
 
         try {
-            Booking booking;
-
-            if (packageName != null && !packageName.isEmpty()) {
-                // Get the package details
-                Package selectedPackage = packageService.getPackageByName(packageName).orElse(null);
-                if (selectedPackage != null) {
-                    booking = new Booking(username, providerName, eventDate, location, eventType, "pending",
-                                         selectedPackage.getName(), selectedPackage.getPrice());
-                } else {
-                    booking = new Booking(username, providerName, eventDate, location, eventType, "pending");
-                }
-            } else {
-                booking = new Booking(username, providerName, eventDate, location, eventType, "pending");
-            }
+            // Create booking object using the helper method
+            Booking booking = bookingService.createBookingObject(username, providerName, eventDate, location, eventType, packageName, packageService);
 
             boolean success = bookingService.createBooking(booking);
 
