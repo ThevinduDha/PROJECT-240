@@ -54,21 +54,9 @@ public class BookingController {
             return "user/login";
         }
 
-        Booking booking;
-        if (packageName != null && !packageName.isEmpty()) {
-            // Get the package details
-            Package selectedPackage = packageService.getPackageByName(packageName).orElse(null);
-            if (selectedPackage != null) {
-                booking = new Booking(username, providerName, eventDate, location, type, "pending",
-                        selectedPackage.getName(), selectedPackage.getPrice());
-            } else {
-                booking = new Booking(username, providerName, eventDate, location, type, "pending");
-            }
-        } else {
-            booking = new Booking(username, providerName, eventDate, location, type, "pending");
-        }
+        Booking booking = bookingService.createBookingObject(username, providerName, eventDate, location, type, packageName, packageService);
 
-        boolean success = bookingService.createBooking(booking);
+        bookingService.createBooking(booking);
         List<Booking> bookings = bookingService.getBookingsByUser(username);
         model.addAttribute("bookings", bookings);
         return "booking/success";
